@@ -18,8 +18,40 @@ let std_quotes = ["Patience you must have, my young padawan.",
 "Judge me by my size, do you?",
 "Difficult to see. Always in motion is the future."
 ];
+let all_quotes = [dark_quotes, force_quotes, std_quotes];
+
+function rand_el(arr) {
+    if (Array.isArray(arr)){
+        return rand_el(arr[Math.floor(Math.random() * arr.length)])
+    } else {
+        return arr
+    }
+};
+
+function rand_quote_m(arr) {
+    return(rand_el(arr) + " h" + "m".repeat(Math.floor(Math.random() * 15)+1))
+}
 
 function respond() {
-    // Your Code Here
-    console.log("Hello World!");
+    var inputtext = document.getElementById("input").value;
+    if (inputtext.includes("cute") || inputtext.includes("baby")) {
+        document.getElementById("pic").setAttribute("src", "img/cute-std.jpg")
+        document.getElementById("txt").innerText = rand_quote_m("");
+    } else if (inputtext.includes("force")) {
+        if (inputtext.includes("dark")) {
+            document.getElementById("pic").setAttribute("src", "img/" + rand_el(names) +"-dark.jpg")
+        } else {
+            document.getElementById("pic").setAttribute("src", "img/" + rand_el(names) +"-force.jpg")
+        } 
+        document.getElementById("txt").innerText = rand_quote_m(all_quotes);
+    } else {
+        document.getElementById("pic").setAttribute("src", "img/"+ rand_el(names) + "-" + 
+        rand_el(moods) + ".jpg")
+        if (document.getElementById("pic").getAttribute("src") == "img/cute-std.jpg") {
+            document.getElementById("txt").innerText = rand_quote_m("");
+        } else {
+            document.getElementById("txt").innerText = rand_quote_m(all_quotes);
+        }
+    }
+    console.log(inputtext);
 }
