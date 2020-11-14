@@ -15,17 +15,17 @@ class Panel extends React.Component {
     this.process_click = this.process_click.bind(this);
   }
   handle_color = (c) => {
-    setTimeout(() => {
-      this.setState({color: c})
-    }, this.state.true_duration)
+    this.setState({color: c});
   }
   start_count() {
+    var duration = Math.random() * (7000 - 2000) + 2000
     this.setState({
       start_time: window.performance.now(),
-      true_duration: Math.random() * (7000 - 2000) + 2000,
+      true_duration: duration,
       counting: true,
-      color: "red"
+      color: "darkred"
     })
+    setTimeout(() => this.handle_color("green"), duration);
   }
   end_count() {
     if ((window.performance.now()-this.state.start_time) >= this.state.true_duration) {
@@ -41,7 +41,7 @@ class Panel extends React.Component {
       this.end_count();
     } else {
       this.start_count()
-      this.handle_color("green");
+      // this.handle_color("green");
     }
   }
   render() {
